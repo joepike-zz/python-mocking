@@ -50,3 +50,5 @@ def mock_simple_function_with_side_effect(mock_simple_func):
     mock_simple_func.side_effect = side_effect_function
     result = simple.simple_function()
     print(result)
+
+mock_simple_function_with_side_effect()
