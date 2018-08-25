@@ -3,18 +3,18 @@ from unittest import mock
 
 import simple
 
-# def use_simple_function():
-#     result = simple.simple_function()
-#     print(result)
-#
+def use_simple_function():
+    result = simple.simple_function()
+    print(result)
+
 # use_simple_function()
-#
-# @mock.patch('simple.simple_function')
-# def mock_simple_function(mock_simple_func):
-#     mock_simple_func.return_value = "You have mocked simple_function"
-#     result = simple.simple_function()
-#     print(result)
-#
+
+@mock.patch('simple.simple_function')
+def mock_simple_function(mock_simple_func):
+    mock_simple_func.return_value = "You have mocked simple_function"
+    result = simple.simple_function()
+    print(result)
+
 # mock_simple_function()
 
 # output:
@@ -43,7 +43,7 @@ import simple
 # is called, and magicmock implements this as a new MagicMock object
 
 def side_effect_function():
-    return "Woooh!"
+    raise FloatingPointError("Floating point error has occured")
 
 @mock.patch('simple.simple_function')
 def mock_simple_function_with_side_effect(mock_simple_func):
@@ -51,4 +51,20 @@ def mock_simple_function_with_side_effect(mock_simple_func):
     result = simple.simple_function()
     print(result)
 
-mock_simple_function_with_side_effect()
+# mock_simple_function_with_side_effect()
+
+def use_simple_class():
+    inst = simple.SimpleClass()
+    print(inst.explode())
+
+# use_simple_class()
+
+@mock.patch('simple.SimpleClass')
+def mock_simple_class(mock_class):
+    print(mock_class)
+    print(simple.SimpleClass)
+    inst = simple.SimpleClass()
+    print(inst)
+    print(mock_class.return_value)
+
+mock_simple_class()
