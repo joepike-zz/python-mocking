@@ -43,7 +43,7 @@ def mock_simple_function(mock_simple_func):
 # is called, and magicmock implements this as a new MagicMock object
 
 def side_effect_function():
-    raise FloatingPointError("Floating point error has occured")
+    print("A side effect")
 
 @mock.patch('simple.simple_function')
 def mock_simple_function_with_side_effect(mock_simple_func):
@@ -61,10 +61,12 @@ def use_simple_class():
 
 @mock.patch('simple.SimpleClass')
 def mock_simple_class(mock_class):
-    print(mock_class)
-    print(simple.SimpleClass)
+    mock_class.return_value.explode.return_value = "BOO!"
     inst = simple.SimpleClass()
-    print(inst)
-    print(mock_class.return_value)
+    result = inst.explode()
+    print(result)
+    mock_class.return_value.explode.side_effect = side_effect_function
+    result1 = inst.explode()
+    print(result1)
 
 mock_simple_class()
