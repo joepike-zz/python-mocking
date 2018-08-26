@@ -11,3 +11,11 @@ def get_animal_noises():
     animal_list = Animal.query.all()
     noises = [animal.noise in animal_list]
     return noises
+
+def use_get_noise(self):
+    noises = get_animal_noises()
+    assert(noises[0] == 'RAAAH')
+
+@mock.patch("animals.Animal")
+def test_get_noise(self, mock_animal):
+    noises = get_animal_noises()
