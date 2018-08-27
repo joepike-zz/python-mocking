@@ -1,5 +1,4 @@
 
-something = aClass().a_class_method()["a key"].a_method().an_attribute
 
 class Animal(db.Model):
     __tablename__ = "animal"
@@ -18,4 +17,14 @@ def use_get_noise(self):
 
 @mock.patch("animals.Animal")
 def test_get_noise(self, mock_animal):
+
+    # create test animal
+    test_animal = Animal()
+    test_animal.noise = "RAAAAH"
+    test_animal.type = "honey badger"
+
+    # set return_value of all to list containing test_animal
+    mock_animal.query.all.return_value = [test_animal]
+
     noises = get_animal_noises()
+    assert(noises[0] == "RAAAAH")
